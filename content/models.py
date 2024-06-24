@@ -6,3 +6,10 @@ class ContentType(models.Model):
 
     class Meta:
         ordering = ["name"]
+
+
+class Position(models.Model):
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ["name"]
