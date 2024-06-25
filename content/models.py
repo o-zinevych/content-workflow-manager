@@ -10,6 +10,9 @@ class ContentType(models.Model):
     class Meta:
         ordering = ["name"]
 
+    def __str__(self):
+        return self.name
+
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
@@ -17,12 +20,21 @@ class Position(models.Model):
     class Meta:
         ordering = ["name"]
 
+    def __str__(self):
+        return self.name
+
 
 class Staff(AbstractUser):
     position = models.ManyToManyField(Position, related_name="staff")
 
     class Meta:
         verbose_name_plural = "staff"
+
+    def __str__(self):
+        if self.first_name and self.last_name:
+            return (f"{self.first_name} {self.last_name} "
+                    f"({self.position}, @{self.username})")
+        return f"{self.username} ({self.position})"
 
 
 class Task(models.Model):
@@ -34,7 +46,7 @@ class Task(models.Model):
     ]
 
     name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(blank=True, null=True)
     deadline = models.DateField()
     is_finished = models.BooleanField(default=False)
     priority = models.CharField(
@@ -54,3 +66,6 @@ class Task(models.Model):
 
     class Meta:
         ordering = ["deadline", "priority"]
+
+    def __str__(self):
+        return f"{self.name} by {self.deadline}"
