@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from content.models import ContentType, Staff, Task
 
 
+@login_required
 def index(request):
     """View function for the home page."""
     content_types_num = ContentType.objects.count()
