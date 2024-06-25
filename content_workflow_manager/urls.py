@@ -23,4 +23,5 @@ from content_workflow_manager import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("content.urls", namespace="content")),
+    path("accounts/", include("django.contrib.auth.urls"))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
