@@ -31,10 +31,11 @@ class Staff(AbstractUser):
         verbose_name_plural = "staff"
 
     def __str__(self):
+        positions = ", ".join([pos.name for pos in self.position.all()])
         if self.first_name and self.last_name:
             return (f"{self.first_name} {self.last_name} "
-                    f"({self.position}, @{self.username})")
-        return f"{self.username} ({self.position})"
+                    f"({positions}, @{self.username})")
+        return f"{self.username} ({positions})"
 
 
 class Task(models.Model):
