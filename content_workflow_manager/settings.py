@@ -68,6 +68,8 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
 WSGI_APPLICATION = "content_workflow_manager.wsgi.application"
 
 
@@ -101,6 +103,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "content.Staff"
+
+LOGIN_REDIRECT_URL = "/"
 
 
 # Internationalization
