@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<main>
+  
+  <section class="section-header overflow-hidden pt-6 pt-lg-7 pb-8 pb-lg-15 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="bootstrap-big-icon d-none d-lg-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="450" height="300" fill="currentColor" class="bi bi-calendar-range" viewBox="0 0 16 16">
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"></path>
+              <path d="M9 7a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 1a.5.5 0 0 1 0 1H3a.5.5 0 0 1 0-1h10z"></path>
+            </svg>
+          </div>
+          <h1 class="fw-bolder display-2">Content Creation Workflow Manager</h1>
+          <h2 class="lead fw-normal text-muted mb-4 px-lg-10">
+            Your best solution for productive collaboration and staying on track!
+          </h2>
+        </div>
+      </div>
+    </div>
+    <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2"><svg class="fill-white"
+        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
+        <path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path>
+      </svg></figure>
+  </section>
+  
+  <section class="section section-sm">
+    <div class="container">
+      <div class="row justify-content-center mb-5 mb-lg-6">
+        <div class="col-6 col-md-3 text-center mb-4">
+          <div class="icon icon-shape icon-lg bg-white shadow-lg border-light rounded-circle mb-4">
+            <span class="fas fa-address-card text-tertiary"></span>
+          </div>
+          <h3 class="fw-bolder">{{ staff_num }}</h3>
+          <p class="fs-5 text-gray">Staff Members</p>
+        </div>
+        <div class="col-6 col-md-3 text-center mb-4">
+          <div class="icon icon-shape icon-lg bg-white shadow-lg border-light rounded-circle mb-4">
+            <span class="fas fa-calendar-check text-tertiary"></span>
+          </div>
+          <h3 class="fw-bolder">{{ tasks_num }}</h3>
+          <p class="fs-5 text-gray">Tasks Total</p>
+        </div>
+        <div class="col-6 col-md-3 text-center">
+          <div class="icon icon-shape icon-lg bg-white shadow-lg border-light rounded-circle mb-4">
+            <span class="fas fa-photo-video text-tertiary"></span>
+          </div>
+          <h3 class="fw-bolder">{{ content_types_num }}</h3>
+          <p class="fs-5 text-gray">Types of Content Produced</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}
