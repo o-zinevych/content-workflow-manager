@@ -1,0 +1,26 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <section class="section section-header pb-5 bg-primary text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-8 text-center">
+          <h1 class="display-3 mb-3">Content Types We're Working On</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-sm">
+    <div class="container">
+          {% if content_type_list %}
+            <ul class="list-group align-items-center">
+              {% for type in content_type_list %}
+                <li class="w-50 mb-1 list-group-item text-white font-medium bg-secondary text-center">
+                  {{ type.name }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+  </section>
+{% endblock %}
