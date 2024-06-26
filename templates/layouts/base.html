@@ -47,13 +47,19 @@
 
 {% block header %}
 
-  {% include 'includes/navigation.html' %}
+  {% include "includes/navigation.html" %}
 
 {% endblock header %}
 
 {% block content %}{% endblock content %}
 
-{% include 'includes/scripts.html' %}
+{% block pagination %}
+
+  {% include "includes/pagination.html" %}
+  
+{% endblock %}
+
+{% include "includes/scripts.html" %}
 {% block javascripts %}{% endblock javascripts %}
 
 
