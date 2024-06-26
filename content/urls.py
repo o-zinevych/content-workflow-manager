@@ -5,6 +5,7 @@ from .views import (
     ContentTypeListView,
     PositionListView,
     StaffListView,
+    TaskListView,
 )
 
 
@@ -16,7 +17,8 @@ urlpatterns = [
         name="content-type-list"
     ),
     path("positions/", PositionListView.as_view(), name="position-list"),
-    path("staff/", StaffListView.as_view(), name="staff-list")
+    path("staff/", StaffListView.as_view(), name="staff-list"),
+    path("tasks/", TaskListView.as_view(), name="task-list"),
 ]
 
 app_name = "content"

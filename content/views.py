@@ -37,3 +37,9 @@ class StaffListView(LoginRequiredMixin, generic.ListView):
     model = Staff
     queryset = get_user_model().objects.prefetch_related("position")
     paginate_by = 7
+
+
+class TaskListView(LoginRequiredMixin, generic.ListView):
+    model = Task
+    queryset = (Task.objects.select_related("content_type")
+                .prefetch_related("staff"))
