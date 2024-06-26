@@ -33,6 +33,11 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
 
+class PositionDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Position
+    queryset = Position.objects.prefetch_related("staff")
+
+
 class StaffListView(LoginRequiredMixin, generic.ListView):
     model = Staff
     queryset = get_user_model().objects.prefetch_related("position")

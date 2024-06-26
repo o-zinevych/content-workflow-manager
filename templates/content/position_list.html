@@ -34,7 +34,9 @@
               <ul class="list-group">
                 {% for position in position_list %}
                   <li class="mb-1 list-group-item">
-                    {{ position.name }}
+                    <a href="{% url 'content:position-detail' position.id %}" class="pe-9">
+                      {{ position.name }}
+                    </a>
                   </li>
                 {% endfor %}
               </ul>
