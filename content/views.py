@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
@@ -30,3 +31,9 @@ class ContentTypeListView(LoginRequiredMixin, generic.ListView):
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
     paginate_by = 5
+
+
+class StaffListView(LoginRequiredMixin, generic.ListView):
+    model = Staff
+    queryset = get_user_model().objects.prefetch_related("position")
+    paginate_by = 7
