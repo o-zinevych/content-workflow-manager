@@ -31,6 +31,7 @@
                 <th scope="col">Finished</th>
                 <th scope="col">Priority</th>
                 <th scope="col">Content Type</th>
+                <th scope="col">Staff Involved</th>
               </tr>
               </thead>
               <tbody>
@@ -53,6 +54,11 @@
                   </td>
                   <td>{{ task.priority }}</td>
                   <td>{{ task.content_type }}</td>
+                  <td>
+                    {% for staff in task.staff.all %}
+                      <p class="mb-0">{{ staff.username }}</p>
+                    {% endfor %}
+                  </td>
                 </tr>
               {% endfor %}
               </tbody>
