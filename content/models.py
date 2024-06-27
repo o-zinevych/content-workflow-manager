@@ -5,7 +5,7 @@ from content_workflow_manager import settings
 
 
 class ContentType(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     class Meta:
         ordering = ["name"]
@@ -15,7 +15,7 @@ class ContentType(models.Model):
 
 
 class Position(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     class Meta:
         ordering = ["name"]
