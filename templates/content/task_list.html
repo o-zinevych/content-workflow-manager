@@ -41,7 +41,9 @@
                   <th scope="row">{{ task.id }}</th>
                   <td>
                     <div class="d-flex align-items-center">
+                      <a href="{% url 'content:task-detail' task.id %}" class="text-info">
                       {{ task.name }}
+                      </a>
                     </div>
                   </td>
                   <td>{{ task.deadline }}</td>

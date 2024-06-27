@@ -64,3 +64,9 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     queryset = (Task.objects.select_related("content_type")
                 .prefetch_related("staff"))
+
+
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Task
+    queryset = (Task.objects.select_related("content_type")
+                .prefetch_related("staff"))
