@@ -2,7 +2,7 @@
 
 <header class="header-global">
 
-  {% if request.path == "/staff/"%}
+  {% if request.path == "/staff/" or request.path == "/content-types/create/" %}
     <nav id="navbar-main" aria-label="Primary navigation"
          class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
   {% else %}
