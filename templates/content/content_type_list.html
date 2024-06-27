@@ -6,6 +6,15 @@
       <div class="row justify-content-center">
         <div class="col-12 col-xl-8 text-center">
           <h1 class="display-3 mb-3">Content Types We're Working On</h1>
+          <a 
+              href="{% url 'content:content-type-create' %}" 
+              class="btn btn-tertiary mb-3 mt-2 me-2 me-md-3 animate-up-2"
+          >
+            <span class="fas fa-plus me-2"></span> 
+            <span class="d-none d-md-inline">
+              Add a content type
+            </span>
+          </a>
         </div>
       </div>
     </div>

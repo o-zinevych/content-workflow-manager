@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     index,
     ContentTypeListView,
+    ContentTypeCreateView,
     PositionListView,
     PositionDetailView,
     StaffListView,
@@ -18,6 +19,11 @@ urlpatterns = [
         "content-types/",
         ContentTypeListView.as_view(),
         name="content-type-list"
+    ),
+    path(
+        "content-types/create/",
+        ContentTypeCreateView.as_view(),
+        name="content-type-create"
     ),
     path("positions/", PositionListView.as_view(), name="position-list"),
     path(
