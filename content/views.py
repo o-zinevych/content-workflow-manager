@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from content.forms import PositionForm
 from content.models import ContentType, Staff, Task, Position
 
 
@@ -45,6 +46,12 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
 class PositionDetailView(LoginRequiredMixin, generic.DetailView):
     model = Position
     queryset = Position.objects.prefetch_related("staff")
+
+
+class PositionCreateView(LoginRequiredMixin, generic.CreateView):
+    form_class = PositionForm
+    template_name = "content/position_form.html"
+    success_url = reverse_lazy("content:position-list")
 
 
 class StaffListView(LoginRequiredMixin, generic.ListView):
