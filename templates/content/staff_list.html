@@ -44,10 +44,10 @@
                 <th scope="row">{{ staff.id }}</th>
                 <td>
                   <div class="d-flex align-items-center">
-                    {{ staff.username }}
-                    {% if user.id == staff.id %}
-                      (me)
-                    {% endif %}
+                    <a href="{% url 'content:staff-detail' staff.id %}" class="text-info">
+                      {{ staff.username }}
+                    </a>
+                    {% if user.id == staff.id %} (me){% endif %}
                   </div>
                 </td>
                 <td>{{ staff.first_name }}</td>

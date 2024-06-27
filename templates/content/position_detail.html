@@ -27,7 +27,9 @@
           <ul class="list-group list-group-flush">
             {% for staff in position.staff.all %}
               <li class="list-group-item list-group-item-action font-medium">
-                {{ staff }}
+                <a href="{% url 'content:staff-detail' staff.id %}">
+                  {{ staff }}
+                </a>
               </li>
             {% endfor %}
           </ul>

@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Prefetch
 from django.shortcuts import render
 from django.views import generic
 
@@ -42,6 +43,21 @@ class StaffListView(LoginRequiredMixin, generic.ListView):
     model = Staff
     queryset = get_user_model().objects.prefetch_related("position")
     paginate_by = 7
+
+
+class StaffDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Staff
+    queryset = get_user_model().objects.prefetch_related(
+        "position",
+        Prefetch("tasks", queryset=Task.objects.filter(is_finished=False))
+    )
+
+    def get_context_data(self, **kwargs):
+        context = super(StaffDetailView, self).get_context_data(**kwargs)
+        staff = self.get_object()
+        unfinished_tasks = staff.tasks.filter(is_finished=False)
+        context["unfinished_tasks"] = unfinished_tasks
+        return context
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
