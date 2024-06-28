@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 
-from content.models import Position
+from content.models import Position, Task
 
 
 class PositionForm(forms.ModelForm):
@@ -32,3 +32,20 @@ class StaffCreationForm(UserCreationForm):
             "last_name",
             "email",
             "position",)
+
+
+class TaskForm(forms.ModelForm):
+    deadline = forms.DateField(
+        label="Deadline",
+        required=True,
+        widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        input_formats=["%Y-%m-%d"]
+    )
+    staff = forms.ModelMultipleChoiceField(
+        queryset=get_user_model().objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    class Meta:
+        model = Task
+        fields = "__all__"
