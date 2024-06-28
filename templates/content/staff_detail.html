@@ -35,11 +35,11 @@
           <h3 class="text-info">Tasks to do:</h3>
           <ul>
             {% for task in unfinished_tasks %}
-                <li>
-                  <a href="{% url 'content:task-detail' task.id %}" class="text-info">
-                    {{ task }}
-                  </a>
-                </li>
+              <li>
+                <a href="{% url 'content:task-detail' task.id %}" class="text-info">
+                  {{ task }}
+                </a>
+              </li>
             {% empty %}
               <p class="text-success lead">All done!</p>
             {% endfor %}
