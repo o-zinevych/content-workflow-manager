@@ -7,11 +7,11 @@
       <div class="row mb-5 mb-lg-6">
         <div class="col-12 col-md-9 col-lg-8 text-center mx-auto">
           <h2 class="h1 mb-4">Our Fun and Creative Team</h2>
-          <a 
-              href="{% url 'content:staff-create' %}" 
+          <a
+              href="{% url 'content:staff-create' %}"
               class="btn btn-orange mb-3 mt-2 me-2 me-md-3 animate-up-2"
           >
-            <span class="fas fa-user-circle me-2"></span> 
+            <span class="fas fa-user-circle me-2"></span>
             <span class="d-none d-md-inline">
               Add a staff member
             </span>
@@ -47,33 +47,35 @@
               </tr>
               </thead>
               <tbody>
-  
+
               {% for staff in staff_list %}
                 <tr>
-                <th scope="row">{{ staff.id }}</th>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <a href="{% url 'content:staff-detail' staff.id %}" class="text-info">
-                      {{ staff.username }}
-                    </a>
-                    {% if user.id == staff.id %} (me){% endif %}
-                  </div>
-                </td>
-                <td>{{ staff.first_name }}</td>
-                <td>{{ staff.last_name }}</td>
-                <td>
-                  {% for position in staff.position.all %}
-                    {{ position.name }}{% if not forloop.last %}, {% endif %}
-                  {% endfor %}
-                </td>
-                <td>{{ staff.email }}</td>
-                <td>
-                  <div class="d-flex">
-                    <i class="fas fa-edit mr-3" data-toggle="tooltip" data-placement="top" title="Edit item"></i>
-                    <i class="fas fa-trash text-danger mr-2" data-toggle="tooltip" data-placement="top"
-                       title="Delete item"></i>
-                  </div>
-                </td>
+                  <th scope="row">{{ staff.id }}</th>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <a href="{% url 'content:staff-detail' staff.id %}" class="text-info">
+                        {{ staff.username }}
+                      </a>
+                      {% if user.id == staff.id %} (me){% endif %}
+                    </div>
+                  </td>
+                  <td>{{ staff.first_name }}</td>
+                  <td>{{ staff.last_name }}</td>
+                  <td>
+                    {% for position in staff.position.all %}
+                      {{ position.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                  </td>
+                  <td>{{ staff.email }}</td>
+                  <td>
+                    <div class="d-flex">
+                      <a href="{% url 'content:staff-update' staff.id %}">
+                        <i class="fas fa-edit mr-3" data-toggle="tooltip" data-placement="top" title="Edit item"></i>
+                      </a>
+                      <i class="fas fa-trash text-danger mr-2" data-toggle="tooltip" data-placement="top"
+                         title="Delete item"></i>
+                    </div>
+                  </td>
                 </tr>
               {% endfor %}
               </tbody>

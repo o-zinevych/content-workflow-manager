@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UserChangeForm,
+    ReadOnlyPasswordHashField
+)
 
 from content.models import Position, Task
 
@@ -32,6 +36,27 @@ class StaffCreationForm(UserCreationForm):
             "last_name",
             "email",
             "position",)
+
+
+class StaffChangeForm(UserChangeForm):
+    password = ReadOnlyPasswordHashField(
+        label="Password",
+        help_text="Raw passwords are not stored, so there is no way to see "
+                  "this user's password."
+    )
+    position = forms.ModelMultipleChoiceField(
+        queryset=Position.objects.all(),
+        widget=forms.CheckboxSelectMultiple
+    )
+
+    class Meta(UserChangeForm.Meta):
+        model = get_user_model()
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+            "position",
+        )
 
 
 class TaskForm(forms.ModelForm):

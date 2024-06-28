@@ -6,7 +6,12 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from content.forms import PositionForm, StaffCreationForm, TaskForm
+from content.forms import (
+    PositionForm,
+    StaffChangeForm,
+    StaffCreationForm,
+    TaskForm,
+)
 from content.models import ContentType, Staff, Task, Position
 
 
@@ -91,6 +96,13 @@ class StaffDetailView(LoginRequiredMixin, generic.DetailView):
 
 class StaffCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = StaffCreationForm
+    template_name = "content/staff_form.html"
+    success_url = reverse_lazy("content:staff-list")
+
+
+class StaffUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Staff
+    form_class = StaffChangeForm
     template_name = "content/staff_form.html"
     success_url = reverse_lazy("content:staff-list")
 
