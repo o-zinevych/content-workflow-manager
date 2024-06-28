@@ -1,8 +1,10 @@
+{% load create_check %}
 {% load static %}
 
 <header class="header-global">
 
-  {% if request.path == "/staff/" or request.path == "/content-types/create/" %}
+  {% create_check request as create_checked %}
+  {% if request.path == "/staff/" or create_checked %}
     <nav id="navbar-main" aria-label="Primary navigation"
          class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
   {% else %}
