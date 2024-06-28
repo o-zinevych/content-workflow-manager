@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from content.forms import PositionForm
+from content.forms import PositionForm, StaffCreationForm
 from content.models import ContentType, Staff, Task, Position
 
 
@@ -73,6 +73,12 @@ class StaffDetailView(LoginRequiredMixin, generic.DetailView):
         unfinished_tasks = staff.tasks.filter(is_finished=False)
         context["unfinished_tasks"] = unfinished_tasks
         return context
+
+
+class StaffCreateView(LoginRequiredMixin, generic.CreateView):
+    form_class = StaffCreationForm
+    template_name = "content/staff_form.html"
+    success_url = reverse_lazy("content:staff-list")
 
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
