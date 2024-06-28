@@ -61,6 +61,13 @@ class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("content:position-list")
 
 
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Position
+    form_class = PositionForm
+    template_name = "content/position_form.html"
+    success_url = reverse_lazy("content:position-list")
+
+
 class StaffListView(LoginRequiredMixin, generic.ListView):
     model = Staff
     queryset = get_user_model().objects.prefetch_related("position")

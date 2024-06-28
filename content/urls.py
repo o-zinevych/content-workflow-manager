@@ -8,6 +8,7 @@ from .views import (
     PositionListView,
     PositionDetailView,
     PositionCreateView,
+    PositionUpdateView,
     StaffListView,
     StaffDetailView,
     StaffCreateView,
@@ -15,7 +16,6 @@ from .views import (
     TaskDetailView,
     TaskCreateView,
 )
-
 
 urlpatterns = [
     path("", index, name="index"),
@@ -44,6 +44,11 @@ urlpatterns = [
         "positions/create/",
         PositionCreateView.as_view(),
         name="position-create"
+    ),
+    path(
+        "positions/<int:pk>/update/",
+        PositionUpdateView.as_view(),
+        name="position-update"
     ),
     path("staff/", StaffListView.as_view(), name="staff-list"),
     path("staff/<int:pk>/", StaffDetailView.as_view(), name="staff-detail"),
