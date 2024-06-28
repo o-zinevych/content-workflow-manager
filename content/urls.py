@@ -4,6 +4,7 @@ from .views import (
     index,
     ContentTypeListView,
     ContentTypeCreateView,
+    ContentTypeUpdateView,
     PositionListView,
     PositionDetailView,
     PositionCreateView,
@@ -27,6 +28,11 @@ urlpatterns = [
         "content-types/create/",
         ContentTypeCreateView.as_view(),
         name="content-type-create"
+    ),
+    path(
+        "content-types/<int:pk>/update/",
+        ContentTypeUpdateView.as_view(),
+        name="content-type-update"
     ),
     path("positions/", PositionListView.as_view(), name="position-list"),
     path(

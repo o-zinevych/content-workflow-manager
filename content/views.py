@@ -38,6 +38,13 @@ class ContentTypeCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("content:content-type-list")
 
 
+class ContentTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = ContentType
+    fields = "__all__"
+    template_name = "content/content_type_form.html"
+    success_url = reverse_lazy("content:content-type-list")
+
+
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
     paginate_by = 5
