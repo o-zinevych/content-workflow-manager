@@ -1,10 +1,10 @@
-{% load create_check %}
+{% load form_check %}
 {% load static %}
 
 <header class="header-global">
 
-  {% create_check request as create_checked %}
-  {% if request.path == "/staff/" or create_checked %}
+  {% form_check request as is_form %}
+  {% if request.path == "/staff/" or is_form %}
     <nav id="navbar-main" aria-label="Primary navigation"
          class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
   {% else %}
