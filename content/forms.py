@@ -40,6 +40,15 @@ class PositionForm(forms.ModelForm):
         return name
 
 
+class PositionSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search positions"})
+    )
+
+
 class StaffCreationForm(UserCreationForm):
     position = forms.ModelMultipleChoiceField(
         queryset=Position.objects.all(),
