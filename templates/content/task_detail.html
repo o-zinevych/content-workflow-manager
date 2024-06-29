@@ -9,7 +9,10 @@
           <h1 class="h1 mb-4">
             {{ task.name }}
             <a href="{% url 'content:task-update' task.id %}">
-              <i class="fas fa-edit btn btn-warning"></i>
+              <i class="fas fa-edit btn btn-tertiary"></i>
+            </a>
+            <a href="{% url 'content:task-delete' task.id %}">
+              <i class="fas fa-trash btn btn-danger"></i>
             </a>
           </h1>
         </div>

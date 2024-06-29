@@ -1,0 +1,23 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <section class="section section-md bg-primary pb-0">
+    <div class="container">
+      <div class="row mb-5 mb-lg-6 text-white">
+        <div class="col text-center">
+          <h1 class="h1 mb-4">
+            Are you sure you want to delete this task?
+          </h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-sm pt-0">
+    <div class="container text-center">
+      <p class="lead">
+        <em>Deleting this task will only delete the task and no other objects.</em>
+      </p>
+      {% include "includes/confirm_delete_form.html" %}
+    </div>
+  </section>
+{% endblock %}
