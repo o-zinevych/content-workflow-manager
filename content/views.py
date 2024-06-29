@@ -50,6 +50,12 @@ class ContentTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("content:content-type-list")
 
 
+class ContentTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = ContentType
+    template_name = "content/content_type_confirm_delete.html"
+    success_url = reverse_lazy("content:content-type-list")
+
+
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
     paginate_by = 5

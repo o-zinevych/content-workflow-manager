@@ -5,6 +5,7 @@ from .views import (
     ContentTypeListView,
     ContentTypeCreateView,
     ContentTypeUpdateView,
+    ContentTypeDeleteView,
     PositionListView,
     PositionDetailView,
     PositionCreateView,
@@ -35,6 +36,11 @@ urlpatterns = [
         "content-types/<int:pk>/update/",
         ContentTypeUpdateView.as_view(),
         name="content-type-update"
+    ),
+    path(
+        "content-types/<int:pk>/delete/",
+        ContentTypeDeleteView.as_view(),
+        name="content-type-delete"
     ),
     path("positions/", PositionListView.as_view(), name="position-list"),
     path(

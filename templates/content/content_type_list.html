@@ -28,7 +28,10 @@
               {{ type.name }}
               <div class="position-absolute top-2 end-3">
                 <a href="{% url 'content:content-type-update' type.id %}">
-                  <i class="fas fa-edit p-1"></i>
+                  <i class="fas fa-edit p-1" title="Edit item"></i>
+                </a>
+                <a href="{% url 'content:content-type-delete' type.id %}">
+                  <i class="fas fa-trash text-danger p-1" title="Delete item"></i>
                 </a>
               </div>
             </li>
