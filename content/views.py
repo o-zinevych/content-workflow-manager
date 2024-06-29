@@ -123,3 +123,10 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = TaskForm
     template_name = "content/task_form.html"
     success_url = reverse_lazy("content:task-list")
+
+
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "content/task_form.html"
+    success_url = reverse_lazy("content:task-list")
