@@ -81,8 +81,9 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         queryset = Position.objects.all()
-        name = self.request.GET.get("name").title()
+        name = self.request.GET.get("name")
         if name:
+            name = name.title()
             return queryset.filter(name=name)
         return queryset
 
