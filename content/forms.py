@@ -5,22 +5,39 @@ from django.contrib.auth.forms import (
     UserChangeForm,
     ReadOnlyPasswordHashField
 )
+from django.core.exceptions import ValidationError
 
-from content.models import Position, Task
+from content.models import Position, Task, ContentType
+
+
+class ContentTypeForm(forms.ModelForm):
+    class Meta:
+        model = ContentType
+        fields = "__all__"
+
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if not name.islower():
+            raise ValidationError(
+                f"Content type names should be lowercase, "
+                f"for example, \"{name.lower()}\"."
+            )
+        return name
 
 
 class PositionForm(forms.ModelForm):
-    name = forms.CharField(
-        max_length=255,
-        label="Name",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Use Title Case"}
-        )
-    )
-
     class Meta:
         model = Position
         fields = "__all__"
+
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        if not name.istitle():
+            raise ValidationError(
+                f"Position names should be in title case, for example, "
+                f"\"{name.title()}\"."
+            )
+        return name
 
 
 class StaffCreationForm(UserCreationForm):

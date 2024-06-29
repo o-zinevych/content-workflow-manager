@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from content.forms import (
+    ContentTypeForm,
     PositionForm,
     StaffChangeForm,
     StaffCreationForm,
@@ -37,15 +38,14 @@ class ContentTypeListView(LoginRequiredMixin, generic.ListView):
 
 
 class ContentTypeCreateView(LoginRequiredMixin, generic.CreateView):
-    model = ContentType
-    fields = "__all__"
+    form_class = ContentTypeForm
     template_name = "content/content_type_form.html"
     success_url = reverse_lazy("content:content-type-list")
 
 
 class ContentTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = ContentType
-    fields = "__all__"
+    form_class = ContentTypeForm
     template_name = "content/content_type_form.html"
     success_url = reverse_lazy("content:content-type-list")
 
