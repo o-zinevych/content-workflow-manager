@@ -118,6 +118,11 @@ class StaffUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("content:staff-list")
 
 
+class StaffDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Staff
+    success_url = reverse_lazy("content:staff-list")
+
+
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
     queryset = (Task.objects.select_related("content_type")

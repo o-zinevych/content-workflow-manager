@@ -72,8 +72,10 @@
                       <a href="{% url 'content:staff-update' staff.id %}">
                         <i class="fas fa-edit mr-3" data-toggle="tooltip" data-placement="top" title="Edit item"></i>
                       </a>
-                      <i class="fas fa-trash text-danger mr-2" data-toggle="tooltip" data-placement="top"
-                         title="Delete item"></i>
+                      <a href="{% url 'content:staff-delete' staff.id %}">
+                        <i class="fas fa-trash text-danger mr-2" data-toggle="tooltip" data-placement="top"
+                           title="Delete item"></i>
+                      </a>
                     </div>
                   </td>
                 </tr>
