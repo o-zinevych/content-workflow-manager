@@ -79,6 +79,11 @@ class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     success_url = reverse_lazy("content:position-list")
 
 
+class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy("content:position-list")
+
+
 class StaffListView(LoginRequiredMixin, generic.ListView):
     model = Staff
     queryset = get_user_model().objects.prefetch_related("position")
