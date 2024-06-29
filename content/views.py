@@ -2,8 +2,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Prefetch
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from content.forms import (
@@ -17,7 +18,7 @@ from content.models import ContentType, Staff, Task, Position
 
 
 @login_required
-def index(request):
+def index(request: HttpRequest) -> HttpResponse:
     """View function for the home page."""
     content_types_num = ContentType.objects.count()
     staff_num = Staff.objects.count()
@@ -28,6 +29,17 @@ def index(request):
         "tasks_num": tasks_num,
     }
     return render(request, "content/index.html", context=context)
+
+
+@login_required
+def update_task_staff(request: HttpRequest, pk: int) -> HttpResponse:
+    task = Task.objects.prefetch_related("staff").get(id=pk)
+    if request.user in task.staff.all():
+        task.staff.remove(request.user)
+    else:
+        task.staff.add(request.user)
+
+    return redirect(reverse("content:task-list"), pk)
 
 
 class ContentTypeListView(LoginRequiredMixin, generic.ListView):
