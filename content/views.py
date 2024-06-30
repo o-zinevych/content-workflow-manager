@@ -85,8 +85,7 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
         queryset = Position.objects.all()
         name = self.request.GET.get("name")
         if name:
-            name = name.title()
-            return queryset.filter(name=name)
+            return queryset.filter(name__icontains=name)
         return queryset
 
 
@@ -128,7 +127,9 @@ class StaffListView(LoginRequiredMixin, generic.ListView):
         staff = self.request.GET.get("staff")
         if staff:
             return queryset.filter(
-                Q(username=staff) | Q(first_name=staff) | Q(last_name=staff)
+                Q(username__icontains=staff)
+                | Q(first_name__icontains=staff)
+                | Q(last_name__icontains=staff)
             )
         return queryset
 
