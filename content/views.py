@@ -15,6 +15,7 @@ from content.forms import (
     StaffCreationForm,
     StaffSearchForm,
     TaskForm,
+    TaskSearchForm,
 )
 from content.models import ContentType, Staff, Task, Position
 
@@ -167,8 +168,22 @@ class StaffDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    queryset = (Task.objects.select_related("content_type")
-                .prefetch_related("staff"))
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = TaskSearchForm(initial={"name": name})
+        return context
+
+    def get_queryset(self):
+        queryset = (Task.objects.select_related("content_type")
+                    .prefetch_related("staff"))
+        name = self.request.GET.get("name")
+        if name:
+            return queryset.filter(
+                Q(name__icontains=name) | Q(staff__username__icontains=name)
+            )
+        return queryset
 
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
