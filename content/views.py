@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
@@ -13,6 +13,7 @@ from content.forms import (
     PositionSearchForm,
     StaffChangeForm,
     StaffCreationForm,
+    StaffSearchForm,
     TaskForm,
 )
 from content.models import ContentType, Staff, Task, Position
@@ -113,8 +114,22 @@ class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class StaffListView(LoginRequiredMixin, generic.ListView):
     model = Staff
-    queryset = get_user_model().objects.prefetch_related("position")
     paginate_by = 7
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(StaffListView, self).get_context_data(**kwargs)
+        staff = self.request.GET.get("staff", "")
+        context["search_form"] = StaffSearchForm(initial={"staff": staff})
+        return context
+
+    def get_queryset(self):
+        queryset = get_user_model().objects.prefetch_related("position")
+        staff = self.request.GET.get("staff")
+        if staff:
+            return queryset.filter(
+                Q(username=staff) | Q(first_name=staff) | Q(last_name=staff)
+            )
+        return queryset
 
 
 class StaffDetailView(LoginRequiredMixin, generic.DetailView):

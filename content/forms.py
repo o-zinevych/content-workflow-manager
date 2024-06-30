@@ -85,6 +85,19 @@ class StaffChangeForm(UserChangeForm):
         )
 
 
+class StaffSearchForm(forms.Form):
+    staff = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by first name, last name or username"
+            }
+        )
+    )
+
+
 class TaskForm(forms.ModelForm):
     deadline = forms.DateField(
         label="Deadline",
