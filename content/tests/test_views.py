@@ -226,12 +226,12 @@ class PrivateTaskViewTest(TestCase):
 
         ContentType.objects.create(name="article")
         self.test_name = "Test task"
-        task = Task.objects.create(
+        self.task = Task.objects.create(
             name=self.test_name,
             deadline=date(2024, 7, 29),
             content_type_id=1
         )
-        task.staff.add(self.user)
+        self.task.staff.add(self.user)
 
     def test_retrieve_tasks(self):
         tasks = Task.objects.all()
@@ -266,4 +266,25 @@ class PrivateTaskViewTest(TestCase):
         self.assertQuerysetEqual(
             queryset,
             Task.objects.filter(staff=self.user)
+        )
+
+    def test_task_staff_deletion_and_assignment_button(self):
+        response = self.client.get(TASK_URL)
+        self.assertIn(
+            "/update-staff/",
+            response.rendered_content
+        )
+
+        self.client.get(reverse("content:task-staff-update", args=[1]))
+        self.assertNotIn(
+            self.user,
+            self.task.staff.all(),
+            "User must be removed from the task staff list"
+        )
+
+        self.client.get(reverse("content:task-staff-update", args=[1]))
+        self.assertIn(
+            self.user,
+            self.task.staff.all(),
+            "User must be added to task staff list"
         )
