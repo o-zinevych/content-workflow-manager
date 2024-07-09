@@ -4,9 +4,9 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 
-from content.forms import PositionSearchForm, StaffSearchForm
+from content.forms import PositionSearchForm, StaffSearchForm, TaskSearchForm
 from content.models import ContentType, Task, Position
-from content.views import PositionListView, StaffListView
+from content.views import PositionListView, StaffListView, TaskListView
 
 INDEX_URL = reverse("content:index")
 CONTENT_TYPE_URL = reverse("content:content-type-list")
@@ -240,4 +240,30 @@ class PrivateTaskViewTest(TestCase):
         self.assertEqual(
             list(response.context["task_list"]),
             list(tasks)
+        )
+
+    def test_task_search_form_is_present(self):
+        search_form = TaskSearchForm()
+        response = self.client.get(TASK_URL)
+        self.assertIsInstance(
+            response.context["search_form"],
+            type(search_form)
+        )
+
+    def test_task_get_queryset(self):
+        view = TaskListView()
+        request = RequestFactory().get(f"tasks/?name={self.test_name}")
+        view.request = request
+        queryset = view.get_queryset()
+        self.assertQuerysetEqual(
+            queryset,
+            Task.objects.filter(name=self.test_name)
+        )
+
+        request = RequestFactory().get(f"tasks/?name={self.user.username}")
+        view.request = request
+        queryset = view.get_queryset()
+        self.assertQuerysetEqual(
+            queryset,
+            Task.objects.filter(staff=self.user)
         )
