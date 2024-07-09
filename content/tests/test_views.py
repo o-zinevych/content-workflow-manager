@@ -191,3 +191,19 @@ class PrivateStaffViewTest(TestCase):
             queryset,
             get_user_model().objects.filter(last_name=self.test_last_name)
         )
+
+    def test_staff_has_unfinished_tasks_in_detail_view_context(self):
+        ContentType.objects.create(name="presentation")
+        task = Task.objects.create(
+            name="Test task",
+            deadline=date(2024, 7, 30),
+            content_type_id=1
+        )
+        task.staff.add(self.user)
+        user_tasks = Task.objects.filter(staff=self.user)
+
+        response = self.client.get(reverse("content:staff-detail", args=[1]))
+        self.assertQuerysetEqual(
+            response.context["unfinished_tasks"],
+            user_tasks
+        )
