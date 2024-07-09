@@ -12,6 +12,7 @@ INDEX_URL = reverse("content:index")
 CONTENT_TYPE_URL = reverse("content:content-type-list")
 POSITION_URL = reverse("content:position-list")
 STAFF_URL = reverse("content:staff-list")
+TASK_URL = reverse("content:task-list")
 
 
 class PublicIndexViewTest(TestCase):
@@ -206,4 +207,37 @@ class PrivateStaffViewTest(TestCase):
         self.assertQuerysetEqual(
             response.context["unfinished_tasks"],
             user_tasks
+        )
+
+
+class PublicTaskViewTest(TestCase):
+    def test_login_required(self):
+        response = self.client.get(STAFF_URL)
+        self.assertNotEqual(response.status_code, 200)
+
+
+class PrivateTaskViewTest(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="test_user",
+            password="test1234"
+        )
+        self.client.force_login(self.user)
+
+        ContentType.objects.create(name="article")
+        self.test_name = "Test task"
+        task = Task.objects.create(
+            name=self.test_name,
+            deadline=date(2024, 7, 29),
+            content_type_id=1
+        )
+        task.staff.add(self.user)
+
+    def test_retrieve_tasks(self):
+        tasks = Task.objects.all()
+        response = self.client.get(TASK_URL)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["task_list"]),
+            list(tasks)
         )
