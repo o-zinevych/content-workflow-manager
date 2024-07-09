@@ -11,6 +11,7 @@ from content.views import PositionListView
 INDEX_URL = reverse("content:index")
 CONTENT_TYPE_URL = reverse("content:content-type-list")
 POSITION_URL = reverse("content:position-list")
+STAFF_URL = reverse("content:staff-list")
 
 
 class PublicIndexViewTest(TestCase):
@@ -122,4 +123,37 @@ class PrivatePositionViewTest(TestCase):
         self.assertQuerysetEqual(
             queryset,
             Position.objects.filter(name=self.test_name)
+        )
+
+
+class PublicStaffViewTest(TestCase):
+    def test_login_required(self):
+        response = self.client.get(STAFF_URL)
+        self.assertNotEqual(response.status_code, 200)
+
+
+class PrivateStaffViewTest(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="test_user",
+            password="test1234"
+        )
+        self.client.force_login(self.user)
+        self.test_username = "test_search_user"
+        self.test_first_name = "John"
+        self.test_last_name = "Doe"
+        get_user_model().objects.create_user(
+            username=self.test_username,
+            password="test1234",
+            first_name=self.test_first_name,
+            last_name=self.test_last_name
+        )
+
+    def test_retrieve_staff(self):
+        staff = get_user_model().objects.all()
+        response = self.client.get(STAFF_URL)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            list(response.context["staff_list"]),
+            list(staff)
         )
