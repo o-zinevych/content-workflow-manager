@@ -95,14 +95,14 @@ class StaffDetailView(LoginRequiredMixin, generic.DetailView):
 
 class StaffCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = StaffCreationForm
-    template_name = "content/staff_form.html"
+    template_name = "staff_manager/staff_form.html"
     success_url = reverse_lazy("content:staff-list")
 
 
 class StaffUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = get_user_model()
     form_class = StaffChangeForm
-    template_name = "content/staff_form.html"
+    template_name = "staff_manager/staff_form.html"
     success_url = reverse_lazy("content:staff-list")
 
 
