@@ -6,11 +6,6 @@ from .views import (
     ContentTypeCreateView,
     ContentTypeUpdateView,
     ContentTypeDeleteView,
-    PositionListView,
-    PositionDetailView,
-    PositionCreateView,
-    PositionUpdateView,
-    PositionDeleteView,
     StaffListView,
     StaffDetailView,
     StaffCreateView,
@@ -45,27 +40,6 @@ urlpatterns = [
         "content-types/<int:pk>/delete/",
         ContentTypeDeleteView.as_view(),
         name="content-type-delete"
-    ),
-    path("positions/", PositionListView.as_view(), name="position-list"),
-    path(
-        "positions/<int:pk>/",
-        PositionDetailView.as_view(),
-        name="position-detail"
-    ),
-    path(
-        "positions/create/",
-        PositionCreateView.as_view(),
-        name="position-create"
-    ),
-    path(
-        "positions/<int:pk>/update/",
-        PositionUpdateView.as_view(),
-        name="position-update"
-    ),
-    path(
-        "positions/<int:pk>/delete/",
-        PositionDeleteView.as_view(),
-        name="position-delete"
     ),
     path("staff/", StaffListView.as_view(), name="staff-list"),
     path("staff/<int:pk>/", StaffDetailView.as_view(), name="staff-detail"),
