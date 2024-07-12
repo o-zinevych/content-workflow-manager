@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -24,17 +24,6 @@ class IndexView(LoginRequiredMixin, generic.TemplateView):
         context["tasks_num"] = Task.objects.count()
         context["content_types_num"] = ContentType.objects.count()
         return context
-
-
-@login_required
-def update_task_staff(request: HttpRequest, pk: int) -> HttpResponse:
-    task = Task.objects.prefetch_related("staff").get(id=pk)
-    if request.user in task.staff.all():
-        task.staff.remove(request.user)
-    else:
-        task.staff.add(request.user)
-
-    return redirect(reverse("content:task-list"), pk)
 
 
 class ContentTypeListView(LoginRequiredMixin, generic.ListView):
@@ -100,6 +89,19 @@ class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = TaskForm
     template_name = "content/task_form.html"
     success_url = reverse_lazy("content:task-list")
+
+
+class UpdateTaskStaffView(LoginRequiredMixin, generic.RedirectView):
+    pattern_name = "content:task-list"
+
+    def get_redirect_url(self, *args, **kwargs):
+        queryset = Task.objects.prefetch_related("staff")
+        task = get_object_or_404(queryset, id=kwargs["pk"])
+        if self.request.user in task.staff.all():
+            task.staff.remove(self.request.user)
+        else:
+            task.staff.add(self.request.user)
+        return super().get_redirect_url()
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
