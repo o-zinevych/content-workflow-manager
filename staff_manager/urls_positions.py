@@ -9,24 +9,24 @@ from .views import (
 )
 
 urlpatterns = [
-    path("positions/", PositionListView.as_view(), name="position-list"),
+    path("", PositionListView.as_view(), name="position-list"),
     path(
-        "positions/<int:pk>/",
+        "<int:pk>/",
         PositionDetailView.as_view(),
         name="position-detail"
     ),
     path(
-        "positions/create/",
+        "create/",
         PositionCreateView.as_view(),
         name="position-create"
     ),
     path(
-        "positions/<int:pk>/update/",
+        "<int:pk>/update/",
         PositionUpdateView.as_view(),
         name="position-update"
     ),
     path(
-        "positions/<int:pk>/delete/",
+        "<int:pk>/delete/",
         PositionDeleteView.as_view(),
         name="position-delete"
     )
