@@ -15,18 +15,15 @@ from content.forms import (
 from content.models import ContentType, Task
 
 
-@login_required
-def index(request: HttpRequest) -> HttpResponse:
-    """View function for the home page."""
-    content_types_num = ContentType.objects.count()
-    staff_num = get_user_model().objects.count()
-    tasks_num = Task.objects.count()
-    context = {
-        "content_types_num": content_types_num,
-        "staff_num": staff_num,
-        "tasks_num": tasks_num,
-    }
-    return render(request, "content/index.html", context=context)
+class IndexView(LoginRequiredMixin, generic.TemplateView):
+    template_name = "content/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context["staff_num"] = get_user_model().objects.count()
+        context["tasks_num"] = Task.objects.count()
+        context["content_types_num"] = ContentType.objects.count()
+        return context
 
 
 @login_required

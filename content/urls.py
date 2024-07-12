@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (
-    index,
+    IndexView,
     ContentTypeListView,
     ContentTypeCreateView,
     ContentTypeUpdateView,
@@ -15,7 +15,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", IndexView.as_view(), name="index"),
     path(
         "content-types/",
         ContentTypeListView.as_view(),
