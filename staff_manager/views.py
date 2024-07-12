@@ -40,14 +40,14 @@ class PositionDetailView(LoginRequiredMixin, generic.DetailView):
 
 class PositionCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = PositionForm
-    template_name = "content/position_form.html"
+    template_name = "staff_manager/position_form.html"
     success_url = reverse_lazy("positions:position-list")
 
 
 class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Position
     form_class = PositionForm
-    template_name = "content/position_form.html"
+    template_name = "staff_manager/position_form.html"
     success_url = reverse_lazy("positions:position-list")
 
 
