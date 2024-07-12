@@ -42,10 +42,10 @@
                 <h6 class="d-block mb-3 text-primary">Staff</h6>
                 <ul class="list-style-none mb-4">
                   <li class="mb-2 megamenu-item">
-                    <a class="megamenu-link" href="{% url 'content:staff-list' %}">All Staff</a>
+                    <a class="megamenu-link" href="{% url 'staff:staff-list' %}">All Staff</a>
                   </li>
                   <li class="mb-2 megamenu-item">
-                    <a class="megamenu-link" href="{% url 'content:position-list' %}">Positions</a>
+                    <a class="megamenu-link" href="{% url 'positions:position-list' %}">Positions</a>
                   </li>
                 </ul>
               </div>
@@ -62,7 +62,7 @@
               </div>
               <div class="col-6 col-lg-4">
                 <h6 class="d-block mb-3 text-primary">Account</h6>
-                <a href="{% url 'content:staff-detail' request.user.id %}">
+                <a href="{% url 'staff:staff-detail' request.user.id %}">
                   <p style="color: #0a53be">{{ request.user.get_username }}</p>
                 </a>
               </div>
