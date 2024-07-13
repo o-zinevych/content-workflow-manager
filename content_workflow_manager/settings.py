@@ -29,7 +29,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ["content-workflow-manager.onrender.com"]
+ALLOWED_HOSTS = ["localhost", "content-workflow-manager.onrender.com"]
 
 
 # Application definition
