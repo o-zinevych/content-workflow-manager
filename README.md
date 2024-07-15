@@ -5,6 +5,9 @@ This is a Django project for managing tasks and staff in the process of content 
 ## Check it out:
 
 [Content Workflow Manager deployed to Render](https://content-workflow-manager.onrender.com)
+Use these login details:
+login: test
+password: xWz_SORU1
 
 ## Installation
 
