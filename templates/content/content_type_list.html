@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+  <section class="section section-header pb-5 bg-primary text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-8 text-center">
+          <h1 class="display-3 mb-3">Content Types We're Working On</h1>
+          <a
+              href="{% url 'content:content-type-create' %}"
+              class="btn btn-tertiary mb-3 mt-2 me-2 me-md-3 animate-up-2"
+          >
+            <span class="fas fa-plus me-2"></span>
+            <span class="d-none d-md-inline">
+              Add a content type
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-sm">
+    <div class="container">
+      {% if content_type_list %}
+        <ul class="list-group align-items-center">
+          {% for type in content_type_list %}
+            <li class="w-50 mb-1 list-group-item text-white font-medium bg-secondary text-center">
+              {{ type.name }}
+              <div class="position-absolute top-2 end-3">
+                <a href="{% url 'content:content-type-update' type.id %}">
+                  <i class="fas fa-edit p-1" title="Edit item"></i>
+                </a>
+                <a href="{% url 'content:content-type-delete' type.id %}">
+                  <i class="fas fa-trash text-danger p-1" title="Delete item"></i>
+                </a>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <h3>There are no content types yet!</h3>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

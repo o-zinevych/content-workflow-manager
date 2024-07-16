@@ -1,0 +1,59 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+  <section class="section section-md bg-primary pb-0">
+    <div class="container">
+      <div class="row mb-5 mb-lg-6 text-warning">
+        <div class="col text-center">
+          <h1 class="h1 mb-4">
+            {{ task.name }}
+            <a href="{% url 'content:task-update' task.id %}">
+              <i class="fas fa-edit btn btn-tertiary"></i>
+            </a>
+            <a href="{% url 'content:task-delete' task.id %}">
+              <i class="fas fa-trash btn btn-danger"></i>
+            </a>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section-sm pt-0">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+          <h2>Description:</h2>
+          <p class="lead">{{ task.description }}</p>
+          <p class="font-medium">
+            <strong class="text-danger">Deadline: </strong>
+            {{ task.deadline }}
+          </p>
+          <p class="font-medium">
+            <strong>Priority: </strong>{{ task.priority }}
+          </p>
+          <p class="font-medium">
+            <strong>Finished: </strong>
+            {% if not task.is_finished %}
+              No
+            {% else %}
+              Yes
+            {% endif %}
+          </p>
+          <p class="font-medium">
+            <strong>Content Type: </strong>{{ task.content_type }}
+          </p>
+          <p class="font-medium">
+            <strong>Staff involved: </strong>
+          </p>
+          <ul>
+            {% for staff in task.staff.all %}
+              <li>{{ staff }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

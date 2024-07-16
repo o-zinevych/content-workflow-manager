@@ -1,5 +1,5 @@
 """
-URL configuration for djangoProject project.
+URL configuration for content_workflow_manager project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -14,10 +14,23 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from content_workflow_manager import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-]
+    path("", include("content.urls", namespace="content")),
+    path(
+        "positions/",
+        include("staff_manager.urls_positions", namespace="positions")
+    ),
+    path(
+        "staff/",
+        include("staff_manager.urls_staff", namespace="staff")
+    ),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("__debug__/", include("debug_toolbar.urls")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

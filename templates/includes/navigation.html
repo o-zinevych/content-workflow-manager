@@ -1,0 +1,89 @@
+{% load form_check %}
+{% load static %}
+
+<header class="header-global">
+
+  {% form_check request as is_form %}
+  {% if request.path == "/staff/" or is_form %}
+    <nav id="navbar-main" aria-label="Primary navigation"
+         class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
+  {% else %}
+    <nav id="navbar-main" aria-label="Primary navigation"
+         class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-dark navbar-theme-secondary">
+  {% endif %}
+  <div class="container position-relative">
+    <a class="navbar-brand me-lg-5" href="/">
+      <i class='fas fa-home'> Home</i>
+    </a>
+    <div class="navbar-collapse collapse me-auto" id="navbar_global">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="/">
+              <img src="{% static 'assets/img/brand/dark.svg' %}" alt="Themesberg logo">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <a href="#navbar_global" class="fas fa-times" data-bs-toggle="collapse" data-bs-target="#navbar_global"
+               aria-controls="navbar_global" aria-expanded="false" title="close" aria-label="Toggle navigation"></a>
+          </div>
+        </div>
+      </div>
+      <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" id="frontPagesDropdown" aria-expanded="false"
+             data-bs-toggle="dropdown">
+            Navigation
+            <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+          </a>
+          <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4" aria-labelledby="frontPagesDropdown">
+            <div class="row">
+              <div class="col-6 col-lg-4">
+                <h6 class="d-block mb-3 text-primary">Staff</h6>
+                <ul class="list-style-none mb-4">
+                  <li class="mb-2 megamenu-item">
+                    <a class="megamenu-link" href="{% url 'staff:staff-list' %}">All Staff</a>
+                  </li>
+                  <li class="mb-2 megamenu-item">
+                    <a class="megamenu-link" href="{% url 'positions:position-list' %}">Positions</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-6 col-lg-4">
+                <h6 class="d-block mb-3 text-primary">Tasks</h6>
+                <ul class="list-style-none mb-4">
+                  <li class="mb-2 megamenu-item">
+                    <a class="megamenu-link" href="{% url 'content:task-list' %}">All Tasks</a>
+                  </li>
+                  <li class="mb-2 megamenu-item">
+                    <a class="megamenu-link" href="{% url 'content:content-type-list' %}">Content Types</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-6 col-lg-4">
+                <h6 class="d-block mb-3 text-primary">Account</h6>
+                <a href="{% url 'staff:staff-detail' request.user.id %}">
+                  <p style="color: #0a53be">{{ request.user.get_username }}</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex align-items-center">
+      <form action="{% url 'logout' %}" method="post" class="me-md-3">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-warning">
+          <span class="fas fa-sign-out-alt me-2"></span>
+          Logout
+        </button>
+      </form>
+      <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_global"
+              aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+  </nav>
+</header>
